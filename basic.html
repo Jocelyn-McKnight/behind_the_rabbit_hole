@@ -6,7 +6,6 @@
   <title>Behind the Rabbit Hole</title>
   <link rel="stylesheet" href="main.css" />
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
- 
   <style>
     .choice-container {
       display: flex;
@@ -29,7 +28,6 @@
     }
   </style>
 </head>
-  
 <body>
   <!-- Hamburger menu toggle -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle" />
@@ -41,132 +39,128 @@
     <a href="politic.html">Political Madness (Algorithm 2)</a>
     <a href="flow.html">No Tricks (Algorithm 3)</a>
   </div>
-  
-<h1 id="question">For Fun</h1>
-<div class="choice-container">
-  <div onclick="select('left')">
-    <img id="imgLeft" class="choice" src="" alt="Option A">
-    <div class="label" id="labelLeft"></div>
+
+  <h1 id="question">For Fun</h1>
+  <div class="choice-container">
+    <div onclick="select('left')">
+      <img id="imgLeft" class="choice" src="" alt="Option A">
+      <div class="label" id="labelLeft"></div>
+    </div>
+    <div onclick="select('right')">
+      <img id="imgRight" class="choice" src="" alt="Option B">
+      <div class="label" id="labelRight"></div>
+    </div>
   </div>
-  <div onclick="select('right')">
-    <img id="imgRight" class="choice" src="" alt="Option B">
-    <div class="label" id="labelRight"></div>
-  </div>
-</div>
 
-<h2 id="result" style="display:none;"></h2>
+  <h2 id="result" style="display:none;"></h2>
 
-<script>
-const categories = {
-rabbits: [
-  { image: "img/rabbits/r1.jpg", tag: "rabbit", label: "Fluffy Bunny" },
-  { image: "img/rabbits/r2.jpg", tag: "rabbit", label: "Leaping Hare" },
-  { image: "img/rabbits/r3.jpg", tag: "rabbit", label: "Cautious Rabbit" },
-  { image: "img/rabbits/r4.jpg", tag: "rabbit", label: "Easter Hopper" },
-  { image: "img/rabbits/r5.jpg", tag: "rabbit", label: "Burrow Buddy" },
-  { image: "img/rabbits/r6.jpg", tag: "rabbit", label: "Forest Friend" }
-    ],
-  
-  holes: [
-    { image: "img/hole/h1.jpg", tag: "hole", label: "Deep Cave" },
-    { image: "img/hole/h2.jpg", tag: "hole", label: "Dark Entrance" },
-    { image: "img/hole/h3.jpg", tag: "hole", label: "Tunneled Earth" },
-    { image: "img/hole/h4.jpg", tag: "hole", label: "Hidden Path" },
-    { image: "img/hole/h5.jpg", tag: "hole", label: "Sunken Opening" },
-    { image: "img/hole/h6.jpg", tag: "hole", label: "Mossy Burrow" }
-  ],
-  
-  alice: [
-    { image: "img/alice/a1.jpg", tag: "alice", label: "Alice Wonders" },
-    { image: "img/alice/a2.jpg", tag: "alice", label: "Curious Eyes" },
-    { image: "img/alice/a3.jpg", tag: "alice", label: "Through the Mirror" },
-    { image: "img/alice/a4.jpg", tag: "alice", label: "Whimsy Walk" },
-    { image: "img/alice/a5.jpg", tag: "alice", label: "Mad Hatter Vision" },
-    { image: "img/alice/a6.jpg", tag: "alice", label: "Tea Party Escape" }
-  ]
-};
+  <script>
+    const categories = {
+      rabbits: [
+        { image: "img/r1.jpg", tag: "rabbits", label: "Fluffy Bunny" },
+        { image: "img/r2.jpg", tag: "rabbits", label: "Leaping Hare" },
+        { image: "img/r3.jpg", tag: "rabbits", label: "Cautious Rabbit" },
+        { image: "img/r4.jpg", tag: "rabbits", label: "Easter Hopper" },
+        { image: "img/r5.jpg", tag: "rabbits", label: "Burrow Buddy" },
+        { image: "img/r6.jpg", tag: "rabbits", label: "Forest Friend" }
+      ],
+      hole: [
+        { image: "img/h1.jpg", tag: "hole", label: "Deep Cave" },
+        { image: "img/h2.jpg", tag: "hole", label: "Dark Entrance" },
+        { image: "img/h3.jpg", tag: "hole", label: "Tunneled Earth" },
+        { image: "img/h4.jpg", tag: "hole", label: "Hidden Path" },
+        { image: "img/h5.jpg", tag: "hole", label: "Sunken Opening" },
+        { image: "img/h6.jpg", tag: "hole", label: "Mossy Burrow" }
+      ],
+      alice: [
+        { image: "img/a1.jpg", tag: "alice", label: "Alice Wonders" },
+        { image: "img/a2.jpg", tag: "alice", label: "Curious Eyes" },
+        { image: "img/a3.jpg", tag: "alice", label: "Through the Mirror" },
+        { image: "img/a4.jpg", tag: "alice", label: "Whimsy Walk" },
+        { image: "img/a5.jpg", tag: "alice", label: "Mad Hatter Vision" },
+        { image: "img/a6.jpg", tag: "alice", label: "Tea Party Escape" }
+      ]
+    };
 
-let history = [];
-let round = 0;
-const maxRounds = 5;
+    let history = [];
+    let round = 0;
+    const maxRounds = 5;
 
-function choose(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+    function choose(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
 
-function getContentBasedPair(lastTag) {
-  const injectionChance = Math.random();
-  let primaryTag = lastTag;
-  let altTag;
+    function getContentBasedPair(lastTag) {
+      const injectionChance = Math.random();
+      let primaryTag = lastTag;
+      let altTag;
 
-  // Occasionally switch to a different category
-  if (injectionChance < 0.3) {
-    const allTags = Object.keys(categories).filter(tag => tag !== lastTag);
-    altTag = choose(allTags);
-  }
+      if (injectionChance < 0.3) {
+        const allTags = Object.keys(categories).filter(tag => tag !== lastTag);
+        altTag = choose(allTags);
+      }
 
-  const poolA = categories[primaryTag];
-  const poolB = altTag ? categories[altTag] : categories[primaryTag];
+      const poolA = categories[primaryTag];
+      const poolB = altTag ? categories[altTag] : categories[primaryTag];
 
-  let left = choose(poolA);
-  let right;
-  do {
-    right = choose(poolB);
-  } while (right.label === left.label);
+      let left = choose(poolA);
+      let right;
+      do {
+        right = choose(poolB);
+      } while (right.label === left.label);
 
-  return [left, right];
-}
+      return [left, right];
+    }
 
-function showPair() {
-  let lastTag = "rabbit";
-  if (history.length > 0) {
-    lastTag = history[history.length - 1].tag;
-  }
+    function showPair() {
+      let lastTag = "rabbits";
+      if (history.length > 0) {
+        lastTag = history[history.length - 1].tag;
+      }
 
-  const [left, right] = getContentBasedPair(lastTag);
+      const [left, right] = getContentBasedPair(lastTag);
 
-  document.getElementById("imgLeft").src = left.image;
-  document.getElementById("labelLeft").innerText = left.label;
-  document.getElementById("imgRight").src = right.image;
-  document.getElementById("labelRight").innerText = right.label;
+      document.getElementById("imgLeft").src = left.image;
+      document.getElementById("labelLeft").innerText = left.label;
+      document.getElementById("imgRight").src = right.image;
+      document.getElementById("labelRight").innerText = right.label;
 
-  // Attach current pair data for tracking
-  document.getElementById("imgLeft").dataset.choice = JSON.stringify(left);
-  document.getElementById("imgRight").dataset.choice = JSON.stringify(right);
-}
+      document.getElementById("imgLeft").dataset.choice = JSON.stringify(left);
+      document.getElementById("imgRight").dataset.choice = JSON.stringify(right);
+    }
 
-function select(side) {
-  const choice = JSON.parse(
-    document.getElementById(side === "left" ? "imgLeft" : "imgRight").dataset.choice
-  );
-  history.push(choice);
-  round++;
+    function select(side) {
+      const choice = JSON.parse(
+        document.getElementById(side === "left" ? "imgLeft" : "imgRight").dataset.choice
+      );
+      history.push(choice);
+      round++;
 
-  if (round >= maxRounds) {
-    endSimulation();
-  } else {
-    showPair();
-  }
-}
+      if (round >= maxRounds) {
+        endSimulation();
+      } else {
+        showPair();
+      }
+    }
 
-function endSimulation() {
-  document.querySelector(".choice-container").style.display = "none";
-  document.getElementById("question").style.display = "none";
-  document.getElementById("result").style.display = "block";
-  const finalTag = getInferredCategory();
-  document.getElementById("result").innerText =
-    `The algorithm thinks you're mostly into: ${finalTag}`;
-}
+    function endSimulation() {
+      document.querySelector(".choice-container").style.display = "none";
+      document.getElementById("question").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      const finalTag = getInferredCategory();
+      document.getElementById("result").innerText =
+        `The algorithm thinks you're mostly into: ${finalTag}`;
+    }
 
-function getInferredCategory() {
-  const counts = {};
-  for (const cat of Object.keys(categories)) counts[cat] = 0;
-  history.forEach(item => counts[item.tag]++);
-  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-}
+    function getInferredCategory() {
+      const counts = {};
+      for (const cat of Object.keys(categories)) counts[cat] = 0;
+      history.forEach(item => counts[item.tag]++);
+      return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+    }
 
-window.onload = showPair;
-</script>
+    window.onload = showPair;
+  </script>
 
 </body>
 </html>

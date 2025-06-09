@@ -8,7 +8,6 @@
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
  
   <style>
-    }
     .choice-container {
       display: flex;
       justify-content: center;
@@ -60,30 +59,28 @@
 <script>
 const categories = {
   rabbits: [
-    { image: "img/rabbit/r1.jpg", tag: "rabbit" },
-    { image: "img/rabbit/r2.jpg", tag: "rabbit" },
-    { image: "img/rabbit/r3.jpg", tag: "rabbit" },
-    { image: "img/rabbit/r4.jpg", tag: "rabbit" },
-    { image: "img/rabbit/r5.jpg", tag: "rabbit" },
-    { image: "img/rabbit/r6.jpg", tag: "rabbit" },
-
+    { image: "img/rabbit/r1.jpg", tag: "rabbit", label: "Fluffy Bunny" },
+    { image: "img/rabbit/r2.jpg", tag: "rabbit", label: "Leaping Hare" },
+    { image: "img/rabbit/r3.jpg", tag: "rabbit", label: "Cautious Rabbit" },
+    { image: "img/rabbit/r4.jpg", tag: "rabbit", label: "Easter Hopper" },
+    { image: "img/rabbit/r5.jpg", tag: "rabbit", label: "Burrow Buddy" },
+    { image: "img/rabbit/r6.jpg", tag: "rabbit", label: "Forest Friend" }
   ],
   holes: [
-    { image: "img/hole/h1.jpg", tag: "hole" },
-    { image: "img/hole/h2.jpg", tag: "hole" },
-    { image: "img/hole/h3.jpg", tag: "hole" },
-    { image: "img/hole/h4.jpg", tag: "hole" },
-    { image: "img/hole/h5.jpg", tag: "hole" },
-    { image: "img/hole/h6.jpg", tag: "hole" },
+    { image: "img/hole/h1.jpg", tag: "hole", label: "Deep Cave" },
+    { image: "img/hole/h2.jpg", tag: "hole", label: "Dark Entrance" },
+    { image: "img/hole/h3.jpg", tag: "hole", label: "Tunneled Earth" },
+    { image: "img/hole/h4.jpg", tag: "hole", label: "Hidden Path" },
+    { image: "img/hole/h5.jpg", tag: "hole", label: "Sunken Opening" },
+    { image: "img/hole/h6.jpg", tag: "hole", label: "Mossy Burrow" }
   ],
-  
   alice: [
-    { image: "img/alice/a1.jpg", tag: "alice" },
-    { image: "img/alice/a2.jpg", tag: "alice" },
-    { image: "img/alice/a3.jpg", tag: "alice" },
-    { image: "img/alice/a4.jpg", tag: "alice" },
-    { image: "img/alice/a5.jpg", tag: "alice" },
-    { image: "img/alice/a6.jpg", tag: "alice" },
+    { image: "img/alice/a1.jpg", tag: "alice", label: "Alice Wonders" },
+    { image: "img/alice/a2.jpg", tag: "alice", label: "Curious Eyes" },
+    { image: "img/alice/a3.jpg", tag: "alice", label: "Through the Mirror" },
+    { image: "img/alice/a4.jpg", tag: "alice", label: "Whimsy Walk" },
+    { image: "img/alice/a5.jpg", tag: "alice", label: "Mad Hatter Vision" },
+    { image: "img/alice/a6.jpg", tag: "alice", label: "Tea Party Escape" }
   ]
 };
 
@@ -100,7 +97,7 @@ function getContentBasedPair(lastTag) {
   let primaryTag = lastTag;
   let altTag;
 
-  // Sometimes switch up the content
+  // Occasionally switch to a different category
   if (injectionChance < 0.3) {
     const allTags = Object.keys(categories).filter(tag => tag !== lastTag);
     altTag = choose(allTags);

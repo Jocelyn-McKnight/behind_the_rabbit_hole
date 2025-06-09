@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Behind the Rabbit Hole</title>
+  <style>
+
+    .step {
+      display: none;
+      background: white;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-left: 5px solid #2196f3;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 8px 14px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    .btn:hover {
+      background-color: #1976d2;
+    }
+
+    .end {
+      border-left-color: #4caf50;
+    }
+
+    .warning {
+      border-left-color: #ff9800;
+    }
+
+    .fail {
+      border-left-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="step active" id="A">
+    <p><strong>Start:</strong> Looking up something simple.</p>
+    <button class="btn" onclick="goTo('B')">Next</button>
+  </div>
+
+  <div class="step" id="B">
+    <p><strong>Is the topic interesting?</strong></p>
+    <button class="btn" onclick="goTo('C')">No</button>
+    <button class="btn" onclick="goTo('D')">Yes</button>
+  </div>
+
+  <div class="step end" id="C">
+    <p>Closed browser. Moved on. ✅</p>
+  </div>
+
+  <div class="step" id="D">
+    <p>Clicked first related link.</p>
+    <button class="btn" onclick="goTo('E')">Next</button>
+  </div>
+
+  <div class="step" id="E">
+    <p>Reading new article/page.</p>
+    <button class="btn" onclick="goTo('F')">Next</button>
+  </div>
+
+  <div class="step" id="F">
+    <p>Found unexpected connection?</p>
+    <button class="btn" onclick="goTo('G')">No</button>
+    <button class="btn" onclick="goTo('H')">Yes</button>
+  </div>
+
+  <div class="step" id="G">
+    <p>Still curious about original topic?</p>
+    <button class="btn" onclick="goTo('C')">No</button>
+    <button class="btn" onclick="goTo('I')">Yes</button>
+  </div>
+
+  <div class="step" id="H">
+    <p>Clicked on related link.</p>
+    <button class="btn" onclick="goTo('J')">Next</button>
+  </div>
+
+  <div class="step" id="I">
+    <p>Searched for more details.</p>
+    <button class="btn" onclick="goTo('FF')">Next</button>
+  </div>
+
+  <div class="step" id="J">
+    <p>Reading new tangential content.</p>
+    <button class="btn" onclick="goTo('K')">Next</button>
+  </div>
+
+  <div class="step" id="K">
+    <p>Mind blown by new info?</p>
+    <button class="btn" onclick="goTo('L')">No</button>
+    <button class="btn" onclick="goTo('M')">Yes</button>
+  </div>
+
+  <div class="step" id="L">
+    <p>Want to go deeper?</p>
+    <button class="btn" onclick="goTo('N')">No</button>
+    <button class="btn" onclick="goTo('O')">Yes</button>
+  </div>
+
+  <div class="step" id="M">
+    <p>Shared with friends.</p>
+    <button class="btn" onclick="goTo('P')">Next</button>
+  </div>
+
+  <div class="step" id="N">
+    <p>Checking time spent...</p>
+    <button class="btn" onclick="goTo('DD')">Next</button>
+  </div>
+
+  <div class="step" id="O">
+    <p>Opened multiple new tabs.</p>
+    <button class="btn" onclick="goTo('Q')">Next</button>
+  </div>
+
+  <div class="step" id="P">
+    <p>Searched for more sources.</p>
+    <button class="btn" onclick="goTo('O')">Next</button>
+  </div>
+
+  <div class="step" id="Q">
+    <p>Simultaneous research on 5+ topics.</p>
+    <button class="btn" onclick="goTo('R')">Next</button>
+  </div>
+
+  <div class="step" id="R">
+    <p>Realized you're lost?</p>
+    <button class="btn" onclick="goTo('S')">No</button>
+    <button class="btn" onclick="goTo('T')">Yes</button>
+  </div>
+
+  <div class="step" id="S">
+    <p>Continue clicking links.</p>
+    <button class="btn" onclick="goTo('U')">Next</button>
+  </div>
+
+  <div class="step" id="T">
+    <p>Remember original question?</p>
+    <button class="btn" onclick="goTo('X')">No</button>
+    <button class="btn" onclick="goTo('Y')">Yes</button>
+  </div>
+
+  <div class="step" id="U">
+    <p>Discovered completely unrelated topic.</p>
+    <button class="btn" onclick="goTo('V')">Next</button>
+  </div>
+
+  <div class="step warning" id="V">
+    <p>Is it 3 AM?</p>
+    <button class="btn" onclick="goTo('H')">No</button>
+    <button class="btn" onclick="goTo('W')">Yes</button>
+  </div>
+
+  <div class="step fail" id="W">
+    <p>Reluctantly closed browser.</p>
+    <button class="btn" onclick="goTo('GG')">Next</button>
+  </div>
+
+  <div class="step" id="X">
+    <p>Trying to retrace your steps...</p>
+    <button class="btn" onclick="goTo('Z')">Next</button>
+  </div>
+
+  <div class="step" id="Y">
+    <p>Attempting to return to original search.</p>
+    <button class="btn" onclick="goTo('BB')">Next</button>
+  </div>
+
+  <div class="step" id="Z">
+    <p>Find your way back?</p>
+    <button class="btn" onclick="goTo('AA')">No</button>
+    <button class="btn" onclick="goTo('Y')">Yes</button>
+  </div>
+
+  <div class="step" id="AA">
+    <p>Gave up, started new search.</p>
+    <button class="btn" onclick="goTo('A')">Start Over</button>
+  </div>
+
+  <div class="step end" id="BB">
+    <p>Original question answered?</p>
+    <button class="btn" onclick="goTo('CC')">Yes</button>
+    <button class="btn" onclick="goTo('I')">No</button>
+  </div>
+
+  <div class="step end" id="CC">
+    <p>Satisfaction achieved.</p>
+    <button class="btn" onclick="goTo('GG')">Close Browser</button>
+  </div>
+
+  <div class="step warning" id="DD">
+    <p>More than 2 hours?</p>
+    <button class="btn" onclick="goTo('I')">No</button>
+    <button class="btn" onclick="goTo('EE')">Yes</button>
+  </div>
+
+  <div class="step fail" id="EE">
+    <p>Existential crisis about time management 😬</p>
+    <button class="btn" onclick="goTo('W')">Close Browser</button>
+  </div>
+
+  <div class="step" id="FF">
+    <p>Found even more interesting subtopic.</p>
+    <button class="btn" onclick="goTo('H')">Next</button>
+  </div>
+
+  <div class="step end" id="GG">
+    <p>Browser closed with 47 tabs of "research" 📚</p>
+    <button class="btn" onclick="goTo('A')">Start Over</button>
+  </div>
+
+  <script>
+    function goTo(id) {
+      document.querySelectorAll(".step").forEach(step => step.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+  </script>
+</body>
+</html>

@@ -6,17 +6,8 @@
   <title>Behind the Rabbit Hole</title>
   <link rel="stylesheet" href="main.css" />
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
- <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 30px;
-    }
-
-    h1 {
-      margin-bottom: 10px;
-    }
-
+ 
+  <style>
     .instructions {
       font-size: 1.2em;
       color: #555;
@@ -51,54 +42,67 @@
     }
   </style>
 </head>
+  
 <body>
+  <!-- Hamburger menu toggle -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
 
-  <h1>🕳️ Behind the Rabbit Hole</h1>
-  <p class="instructions">What would you click on?</p>
+  <div class="hamburger-menu">
+    <a href="tp.html">Title Page</a>
+    <a href="basic.html">For fun (algorithm 1)</a>
+    <a href="politic.html">Political Madness (Algorithm 2)</a>
+    <a href="flow.html">No Tricks (Algorithm 3)</a>
+  </div>
+  
+  <h1>Behind the Rabbit Hole</h1>
+ <p>Select what you’d click on:</p>
 
   <div id="step1" class="choice-grid">
-    <img src="https://images.unsplash.com/photo-1571019613914-85f342c1d58b" alt="Fitness" onclick="showStep2('fitness')">
-    <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6" alt="Cat" onclick="showStep2('cat')">
+    <img src="https://live.staticflickr.com/65535/15394609280_44fc98dd9b_z.jpg" alt="Fitness Sunrise" onclick="choose('fitness')">
+    <img src="https://live.staticflickr.com/65535/31451406110_3eacaf9db5_z.jpg" alt="Space Fitness" onclick="choose('fitness')">
+    <img src="https://live.staticflickr.com/65535/2554668884_8e79554155_z.jpg" alt="Kitten Serious" onclick="choose('cat')">
+    <img src="https://live.staticflickr.com/65535/8191887493_6b3e67f1c1_z.jpg" alt="Cat Princess" onclick="choose('cat')">
   </div>
 
   <div id="step2" class="choice-grid" style="display:none;"></div>
-
-  <div id="finalMessage" class="final-message"></div>
+  <div id="final" class="final-message"></div>
 
   <script>
-    function showStep2(choice) {
-      document.getElementById("step1").style.display = "none";
-      const step2 = document.getElementById("step2");
-      const finalMessage = document.getElementById("finalMessage");
-      step2.innerHTML = "";
+    function choose(category) {
+      document.getElementById('step1').style.display = 'none';
+      const step2 = document.getElementById('step2');
+      step2.style.display = 'flex';
+      step2.innerHTML = '';
 
-      if (choice === "fitness") {
+      if (category === 'fitness') {
         step2.innerHTML = `
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Jordan_B._Peterson_Mar_2018.jpg/320px-Jordan_B._Peterson_Mar_2018.jpg" alt="Motivational Speaker" onclick="showFinal('fitness')">
-          <img src="https://upload.wikimedia.org/wikipedia/en/e/e1/Matrix_Poster.jpg" alt="The Matrix" onclick="showFinal('fitness')">
+          <img src="https://live.staticflickr.com/65535/15394609280_44fc98dd9b_z.jpg" alt="Motivation" onclick="finale('fitness')">
+          <img src="https://live.staticflickr.com/65535/31451406110_3eacaf9db5_z.jpg" alt="Biohacking" onclick="finale('fitness')">
         `;
-      } else if (choice === "cat") {
+      } else {
         step2.innerHTML = `
-          <img src="https://images.unsplash.com/photo-1601758173923-196b1f60d569" alt="Cozy Cat" onclick="showFinal('cat')">
-          <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783" alt="Cat Meme" onclick="showFinal('cat')">
+          <img src="https://live.staticflickr.com/65535/2554668884_8e79554155_z.jpg" alt="Cat Nap" onclick="finale('cat')">
+          <img src="https://live.staticflickr.com/65535/8191887493_6b3e67f1c1_z.jpg" alt="Cat Princess" onclick="finale('cat')">
         `;
       }
-
-      step2.style.display = "flex";
     }
 
-    function showFinal(choice) {
-      document.getElementById("step2").style.display = "none";
-      const finalMessage = document.getElementById("finalMessage");
+    function finale(category) {
+      document.getElementById('step2').style.display = 'none';
+      const output = document.getElementById('final');
 
-      if (choice === "fitness") {
-        finalMessage.innerHTML = `🏋️ You started with fitness — now you're seeing ideological content. The algorithm thinks you're a 'disciplined, driven male' who craves structure and truth.`;
-      } else if (choice === "cat") {
-        finalMessage.innerHTML = `🐱 You clicked on a cat — now you're surrounded by cozy, escapist, and feel-good content. The algorithm assumes you're here to relax, not confront ideas.`;
+      if (category === 'fitness') {
+        output.innerHTML =
+          `🏋️‍♂️ You clicked on fitness content — now you're recommended intense discipline and wellness culture. <br>` +
+          `Algorithm takeaway: You’re part of a “health-focused, self-improvement” audience.`;
+      } else {
+        output.innerHTML =
+          `😸 You clicked a cat — now you're in a cozy zone filled with escape and comfort. <br>` +
+          `Algorithm takeaway: You’re here to relax, laugh, and unwind.`;
       }
     }
   </script>
 
 </body>
 </html>
-  

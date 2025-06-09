@@ -60,20 +60,23 @@
 <script>
 const categories = {
   fitness: [
-    { label: "Start a 5K run", image: "images/fitness/run.jpg" },
-    { label: "Hit the gym", image: "images/fitness/gym.jpg" }
+    { label: "Start a 5K run", image: "images/fitness/run.jpg", tag: "fitness" },
+    { label: "Hit the gym", image: "images/fitness/gym.jpg", tag: "fitness" },
+    { label: "Try a protein shake", image: "images/fitness/shake.jpg", tag: "fitness" }
   ],
   cats: [
-    { label: "Adopt a kitten", image: "images/cats/kitten.jpg" },
-    { label: "Buy a cat hammock", image: "images/cats/hammock.jpg" }
+    { label: "Adopt a kitten", image: "images/cats/kitten.jpg", tag: "cats" },
+    { label: "Buy a cat hammock", image: "images/cats/hammock.jpg", tag: "cats" },
+    { label: "Watch kitten cam", image: "images/cats/cam.jpg", tag: "cats" }
   ],
   hustle: [
-    { label: "Work on your side hustle", image: "images/hustle/laptop.jpg" },
-    { label: "Grind 24/7", image: "images/hustle/grind.jpg" }
+    { label: "Build your empire", image: "images/hustle/laptop.jpg", tag: "hustle" },
+    { label: "Grind 24/7", image: "images/hustle/grind.jpg", tag: "hustle" },
+    { label: "Cut off distractions", image: "images/hustle/focus.jpg", tag: "hustle" }
   ]
 };
 
-const history = [];
+let history = [];
 let round = 0;
 const maxRounds = 5;
 
@@ -81,52 +84,74 @@ function choose(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function getRandomPair() {
-  const allItems = Object.values(categories).flat();
-  let left = choose(allItems);
+function getContentBasedPair(lastTag) {
+  const injectionChance = Math.random();
+  let primaryTag = lastTag;
+  let altTag;
+
+  // Sometimes switch up the content
+  if (injectionChance < 0.3) {
+    const allTags = Object.keys(categories).filter(tag => tag !== lastTag);
+    altTag = choose(allTags);
+  }
+
+  const poolA = categories[primaryTag];
+  const poolB = altTag ? categories[altTag] : categories[primaryTag];
+
+  let left = choose(poolA);
   let right;
   do {
-    right = choose(allItems);
+    right = choose(poolB);
   } while (right.label === left.label);
+
   return [left, right];
 }
 
 function showPair() {
-  const [left, right] = getRandomPair();
+  let lastTag = "fitness";
+  if (history.length > 0) {
+    lastTag = history[history.length - 1].tag;
+  }
+
+  const [left, right] = getContentBasedPair(lastTag);
+
   document.getElementById("imgLeft").src = left.image;
   document.getElementById("labelLeft").innerText = left.label;
   document.getElementById("imgRight").src = right.image;
   document.getElementById("labelRight").innerText = right.label;
+
+  // Attach current pair data for tracking
+  document.getElementById("imgLeft").dataset.choice = JSON.stringify(left);
+  document.getElementById("imgRight").dataset.choice = JSON.stringify(right);
 }
 
 function select(side) {
-  const label = side === "left" ?
-    document.getElementById("labelLeft").innerText :
-    document.getElementById("labelRight").innerText;
-
-  history.push(label);
+  const choice = JSON.parse(
+    document.getElementById(side === "left" ? "imgLeft" : "imgRight").dataset.choice
+  );
+  history.push(choice);
   round++;
 
   if (round >= maxRounds) {
-    document.querySelector(".choice-container").style.display = "none";
-    document.getElementById("question").style.display = "none";
-    document.getElementById("result").style.display = "block";
-    document.getElementById("result").innerText =
-      `Your algorithm thinks you're into: ${getInferredCategory()}`;
+    endSimulation();
   } else {
     showPair();
   }
 }
 
+function endSimulation() {
+  document.querySelector(".choice-container").style.display = "none";
+  document.getElementById("question").style.display = "none";
+  document.getElementById("result").style.display = "block";
+  const finalTag = getInferredCategory();
+  document.getElementById("result").innerText =
+    `The algorithm thinks you're mostly into: ${finalTag}`;
+}
+
 function getInferredCategory() {
-  const counts = { fitness: 0, cats: 0, hustle: 0 };
-  history.forEach(choice => {
-    for (const [cat, items] of Object.entries(categories)) {
-      if (items.find(i => i.label === choice)) {
-        counts[cat]++;
-      }
-    }
-  });
+  const counts = {};
+  for (const cat of Object.keys(categories)) counts[cat] = 0;
+  history.forEach(item => counts[item.tag]++);
   return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
 }
 

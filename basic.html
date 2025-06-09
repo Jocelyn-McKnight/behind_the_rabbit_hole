@@ -59,20 +59,31 @@
 
 <script>
 const categories = {
-  fitness: [
-    { label: "Start a 5K run", image: "images/fitness/run.jpg", tag: "fitness" },
-    { label: "Hit the gym", image: "images/fitness/gym.jpg", tag: "fitness" },
-    { label: "Try a protein shake", image: "images/fitness/shake.jpg", tag: "fitness" }
+  rabbits: [
+    { image: "img/rabbit/r1.jpg", tag: "rabbit" },
+    { image: "img/rabbit/r2.jpg", tag: "rabbit" },
+    { image: "img/rabbit/r3.jpg", tag: "rabbit" },
+    { image: "img/rabbit/r4.jpg", tag: "rabbit" },
+    { image: "img/rabbit/r5.jpg", tag: "rabbit" },
+    { image: "img/rabbit/r6.jpg", tag: "rabbit" },
+
   ],
-  cats: [
-    { label: "Adopt a kitten", image: "images/cats/kitten.jpg", tag: "cats" },
-    { label: "Buy a cat hammock", image: "images/cats/hammock.jpg", tag: "cats" },
-    { label: "Watch kitten cam", image: "images/cats/cam.jpg", tag: "cats" }
+  holes: [
+    { image: "img/hole/h1.jpg", tag: "hole" },
+    { image: "img/hole/h2.jpg", tag: "hole" },
+    { image: "img/hole/h3.jpg", tag: "hole" },
+    { image: "img/hole/h4.jpg", tag: "hole" },
+    { image: "img/hole/h5.jpg", tag: "hole" },
+    { image: "img/hole/h6.jpg", tag: "hole" },
   ],
-  hustle: [
-    { label: "Build your empire", image: "images/hustle/laptop.jpg", tag: "hustle" },
-    { label: "Grind 24/7", image: "images/hustle/grind.jpg", tag: "hustle" },
-    { label: "Cut off distractions", image: "images/hustle/focus.jpg", tag: "hustle" }
+  
+  alice: [
+    { image: "img/alice/a1.jpg", tag: "alice" },
+    { image: "img/alice/a2.jpg", tag: "alice" },
+    { image: "img/alice/a3.jpg", tag: "alice" },
+    { image: "img/alice/a4.jpg", tag: "alice" },
+    { image: "img/alice/a5.jpg", tag: "alice" },
+    { image: "img/alice/a6.jpg", tag: "alice" },
   ]
 };
 
@@ -108,7 +119,7 @@ function getContentBasedPair(lastTag) {
 }
 
 function showPair() {
-  let lastTag = "fitness";
+  let lastTag = "rabbit";
   if (history.length > 0) {
     lastTag = history[history.length - 1].tag;
   }

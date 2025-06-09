@@ -7,27 +7,107 @@
   <link rel="stylesheet" href="main.css" />
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      margin: 40px auto;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .choice-container {
       display: flex;
       justify-content: center;
       gap: 40px;
-      margin: 40px auto;
       flex-wrap: wrap;
     }
+
     .choice {
       width: 300px;
       height: 300px;
       object-fit: cover;
       cursor: pointer;
       border: 5px solid transparent;
+      border-radius: 20px;
       transition: border 0.3s;
     }
+
     .choice:hover {
-      border: 5px solid #333;
+      border: 5px solid #00bcd4;
     }
+
     .label {
       font-weight: bold;
       margin-top: 10px;
+    }
+
+    .hamburger-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2em;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hamburger-menu a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      margin: 10px 0;
+    }
+
+    #menu-toggle:checked + .hamburger-icon + .hamburger-menu {
+      display: block;
     }
   </style>
 </head>
@@ -42,111 +122,109 @@
     <a href="politic.html">Political Madness (Algorithm 2)</a>
     <a href="flow.html">No Tricks (Algorithm 3)</a>
   </div>
-  
-<h1>Behind the Rabbit Hole</h1>
 
-<div class="choice-container">
-  <div onclick="select('left')">
-    <img id="imgLeft" class="choice" src="" alt="Left option">
-    <div class="label" id="labelLeft"></div>
+  <h1>Behind the Rabbit Hole</h1>
+
+  <div class="container">
+    <div class="choice-container">
+      <div onclick="select('left')">
+        <img id="imgLeft" class="choice" src="" alt="Left option">
+        <div class="label" id="labelLeft"></div>
+      </div>
+      <div onclick="select('right')">
+        <img id="imgRight" class="choice" src="" alt="Right option">
+        <div class="label" id="labelRight"></div>
+      </div>
+    </div>
   </div>
-  <div onclick="select('right')">
-    <img id="imgRight" class="choice" src="" alt="Right option">
-    <div class="label" id="labelRight"></div>
-  </div>
-</div>
 
-<script>
-const categories = {
-rabbits: [
-  { image: "img/rabbits/r1.jpg", label: "Fluffy Bunny" },
-  { image: "img/rabbits/r2.jpg", label: "Leaping Hare" },
-  { image: "img/rabbits/r3.jpg", label: "Cautious Rabbit" },
-  { image: "img/rabbits/r4.jpg", label: "Easter Hopper" },
-  { image: "img/rabbits/r5.jpg", label: "Burrow Buddy" },
-  { image: "img/rabbits/r6.jpg", label: "Forest Friend" },
-  { image: "img/rabbits/r7.jpg", label: "Twitchy Nose" },
-  { image: "img/rabbits/r8.jpg", label: "Soft Paws" },
-  { image: "img/rabbits/r9.jpg", label: "Meadow Dash" },
-  { image: "img/rabbits/r10.jpg", label: "Hopper Extraordinaire" },
-  { image: "img/rabbits/r11.jpg", label: "Dandelion Eater" },
-  { image: "img/rabbits/r12.jpg", label: "Velveteen Floof" }
-],
+  <script>
+    const categories = {
+      rabbits: [
+        { image: "img/rabbits/r1.jpg", label: "Fluffy Bunny" },
+        { image: "img/rabbits/r2.jpg", label: "Leaping Hare" },
+        { image: "img/rabbits/r3.jpg", label: "Cautious Rabbit" },
+        { image: "img/rabbits/r4.jpg", label: "Easter Hopper" },
+        { image: "img/rabbits/r5.jpg", label: "Burrow Buddy" },
+        { image: "img/rabbits/r6.jpg", label: "Forest Friend" },
+        { image: "img/rabbits/r7.jpg", label: "Twitchy Nose" },
+        { image: "img/rabbits/r8.jpg", label: "Soft Paws" },
+        { image: "img/rabbits/r9.jpg", label: "Meadow Dash" },
+        { image: "img/rabbits/r10.jpg", label: "Hopper Extraordinaire" },
+        { image: "img/rabbits/r11.jpg", label: "Dandelion Eater" },
+        { image: "img/rabbits/r12.jpg", label: "Velveteen Floof" }
+      ],
+      hole: [
+        { image: "img/hole/h1.jpg", label: "Deep Cave" },
+        { image: "img/hole/h2.jpg", label: "Dark Entrance" },
+        { image: "img/hole/h3.jpg", label: "Tunneled Earth" },
+        { image: "img/hole/h4.jpg", label: "Hidden Path" },
+        { image: "img/hole/h5.jpg", label: "Sunken Opening" },
+        { image: "img/hole/h6.jpg", label: "Mossy Burrow" },
+        { image: "img/hole/h7.jpg", label: "Crumbling Shaft" },
+        { image: "img/hole/h8.jpg", label: "Collapsed Passage" },
+        { image: "img/hole/h9.jpg", label: "Roots and Rocks" },
+        { image: "img/hole/h10.jpg", label: "Feral Tunnel" },
+        { image: "img/hole/h11.jpg", label: "Wind-worn Gap" },
+        { image: "img/hole/h12.jpg", label: "Sinkhole Mouth" }
+      ],
+      alice: [
+        { image: "img/alice/a1.jpg", label: "Alice Wonders" },
+        { image: "img/alice/a2.jpg", label: "Curious Eyes" },
+        { image: "img/alice/a3.jpg", label: "Through the Mirror" },
+        { image: "img/alice/a4.jpg", label: "Whimsy Walk" },
+        { image: "img/alice/a5.jpg", label: "Mad Hatter Vision" },
+        { image: "img/alice/a6.jpg", label: "Tea Party Escape" }
+      ]
+    };
 
-hole: [
-  { image: "img/hole/h1.jpg", label: "Deep Cave" },
-  { image: "img/hole/h2.jpg", label: "Dark Entrance" },
-  { image: "img/hole/h3.jpg", label: "Tunneled Earth" },
-  { image: "img/hole/h4.jpg", label: "Hidden Path" },
-  { image: "img/hole/h5.jpg", label: "Sunken Opening" },
-  { image: "img/hole/h6.jpg", label: "Mossy Burrow" },
-  { image: "img/hole/h7.jpg", label: "Crumbling Shaft" },
-  { image: "img/hole/h8.jpg", label: "Collapsed Passage" },
-  { image: "img/hole/h9.jpg", label: "Roots and Rocks" },
-  { image: "img/hole/h10.jpg", label: "Feral Tunnel" },
-  { image: "img/hole/h11.jpg", label: "Wind-worn Gap" },
-  { image: "img/hole/h12.jpg", label: "Sinkhole Mouth" }
-],
+    let round = 0;
+    let currentCategory = "rabbits";
 
-  alice: [
-    { image: "img/alice/a1.jpg", label: "Alice Wonders" },
-    { image: "img/alice/a2.jpg", label: "Curious Eyes" },
-    { image: "img/alice/a3.jpg", label: "Through the Mirror" },
-    { image: "img/alice/a4.jpg", label: "Whimsy Walk" },
-    { image: "img/alice/a5.jpg", label: "Mad Hatter Vision" },
-    { image: "img/alice/a6.jpg", label: "Tea Party Escape" }
-  ]
-};
+    function choose(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
 
-let round = 0;
-let currentCategory = "rabbits";
+    function select(side) {
+      round++;
+      const chosen = JSON.parse(
+        document.getElementById(side === "left" ? "imgLeft" : "imgRight").dataset.choice
+      );
+      currentCategory = chosen.tag;
+      showPair();
+    }
 
-function choose(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
+    function showPair() {
+      const sameCatArray = categories[currentCategory];
+      const otherCats = Object.keys(categories).filter(c => c !== currentCategory);
+      const altCatKey = choose(otherCats);
+      const altCatArray = categories[altCatKey];
 
-function select(side) {
-  round++;
-  const chosen = JSON.parse(
-    document.getElementById(side === "left" ? "imgLeft" : "imgRight").dataset.choice
-  );
-  currentCategory = chosen.tag;
-  showPair();
-}
+      let left, right;
 
-function showPair() {
-  const sameCatArray = categories[currentCategory];
-  const otherCats = Object.keys(categories).filter(c => c !== currentCategory);
-  const altCatKey = choose(otherCats);
-  const altCatArray = categories[altCatKey];
+      if (round % 3 === 0) {
+        left = choose(sameCatArray);
+        right = choose(altCatArray);
+        right.tag = altCatKey;
+      } else {
+        left = choose(sameCatArray);
+        do {
+          right = choose(sameCatArray);
+        } while (right.image === left.image);
+        right.tag = currentCategory;
+      }
 
-  let left, right;
+      left.tag = currentCategory;
 
-  if (round % 3 === 0) {
-    // Inject one from different category
-    left = choose(sameCatArray);
-    right = choose(altCatArray);
-    right.tag = altCatKey;
-  } else {
-    left = choose(sameCatArray);
-    do {
-      right = choose(sameCatArray);
-    } while (right.image === left.image);
-    right.tag = currentCategory;
-  }
+      document.getElementById("imgLeft").src = left.image;
+      document.getElementById("imgRight").src = right.image;
+      document.getElementById("labelLeft").innerText = left.label;
+      document.getElementById("labelRight").innerText = right.label;
+      document.getElementById("imgLeft").dataset.choice = JSON.stringify(left);
+      document.getElementById("imgRight").dataset.choice = JSON.stringify(right);
+    }
 
-  left.tag = currentCategory;
-
-  document.getElementById("imgLeft").src = left.image;
-  document.getElementById("imgRight").src = right.image;
-  document.getElementById("labelLeft").innerText = left.label;
-  document.getElementById("labelRight").innerText = right.label;
-  document.getElementById("imgLeft").dataset.choice = JSON.stringify(left);
-  document.getElementById("imgRight").dataset.choice = JSON.stringify(right);
-}
-
-window.onload = showPair;
-</script>
-
+    window.onload = showPair;
+  </script>
 </body>
 </html>

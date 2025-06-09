@@ -8,37 +8,25 @@
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
  
   <style>
-    .instructions {
-      font-size: 1.2em;
-      color: #555;
     }
-
-    .choice-grid {
+    .choice-container {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      margin-top: 40px;
-      flex-wrap: wrap;
+      gap: 40px;
+      margin: 40px auto;
     }
-
-    .choice-grid img {
-      width: 250px;
-      height: 250px;
-      object-fit: cover;
-      border: 4px solid transparent;
+    .choice {
+      width: 300px;
       cursor: pointer;
+      border: 5px solid transparent;
       transition: border 0.3s;
     }
-
-    .choice-grid img:hover {
-      border-color: #000;
+    .choice:hover {
+      border: 5px solid #333;
     }
-
-    .final-message {
-      margin-top: 40px;
+    .label {
       font-weight: bold;
-      font-size: 1.3em;
-      color: #333;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -55,54 +43,95 @@
     <a href="flow.html">No Tricks (Algorithm 3)</a>
   </div>
   
-  <h1>Behind the Rabbit Hole</h1>
- <p>Select what you’d click on:</p>
-
-  <div id="step1" class="choice-grid">
-    <img src="https://live.staticflickr.com/65535/15394609280_44fc98dd9b_z.jpg" alt="Fitness Sunrise" onclick="choose('fitness')">
-    <img src="https://live.staticflickr.com/65535/31451406110_3eacaf9db5_z.jpg" alt="Space Fitness" onclick="choose('fitness')">
-    <img src="https://live.staticflickr.com/65535/2554668884_8e79554155_z.jpg" alt="Kitten Serious" onclick="choose('cat')">
-    <img src="https://live.staticflickr.com/65535/8191887493_6b3e67f1c1_z.jpg" alt="Cat Princess" onclick="choose('cat')">
+<h1 id="question">For Fun</h1>
+<div class="choice-container">
+  <div onclick="select('left')">
+    <img id="imgLeft" class="choice" src="" alt="Option A">
+    <div class="label" id="labelLeft"></div>
   </div>
+  <div onclick="select('right')">
+    <img id="imgRight" class="choice" src="" alt="Option B">
+    <div class="label" id="labelRight"></div>
+  </div>
+</div>
 
-  <div id="step2" class="choice-grid" style="display:none;"></div>
-  <div id="final" class="final-message"></div>
+<h2 id="result" style="display:none;"></h2>
 
-  <script>
-    function choose(category) {
-      document.getElementById('step1').style.display = 'none';
-      const step2 = document.getElementById('step2');
-      step2.style.display = 'flex';
-      step2.innerHTML = '';
+<script>
+const categories = {
+  fitness: [
+    { label: "Start a 5K run", image: "images/fitness/run.jpg" },
+    { label: "Hit the gym", image: "images/fitness/gym.jpg" }
+  ],
+  cats: [
+    { label: "Adopt a kitten", image: "images/cats/kitten.jpg" },
+    { label: "Buy a cat hammock", image: "images/cats/hammock.jpg" }
+  ],
+  hustle: [
+    { label: "Work on your side hustle", image: "images/hustle/laptop.jpg" },
+    { label: "Grind 24/7", image: "images/hustle/grind.jpg" }
+  ]
+};
 
-      if (category === 'fitness') {
-        step2.innerHTML = `
-          <img src="https://live.staticflickr.com/65535/15394609280_44fc98dd9b_z.jpg" alt="Motivation" onclick="finale('fitness')">
-          <img src="https://live.staticflickr.com/65535/31451406110_3eacaf9db5_z.jpg" alt="Biohacking" onclick="finale('fitness')">
-        `;
-      } else {
-        step2.innerHTML = `
-          <img src="https://live.staticflickr.com/65535/2554668884_8e79554155_z.jpg" alt="Cat Nap" onclick="finale('cat')">
-          <img src="https://live.staticflickr.com/65535/8191887493_6b3e67f1c1_z.jpg" alt="Cat Princess" onclick="finale('cat')">
-        `;
+const history = [];
+let round = 0;
+const maxRounds = 5;
+
+function choose(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function getRandomPair() {
+  const allItems = Object.values(categories).flat();
+  let left = choose(allItems);
+  let right;
+  do {
+    right = choose(allItems);
+  } while (right.label === left.label);
+  return [left, right];
+}
+
+function showPair() {
+  const [left, right] = getRandomPair();
+  document.getElementById("imgLeft").src = left.image;
+  document.getElementById("labelLeft").innerText = left.label;
+  document.getElementById("imgRight").src = right.image;
+  document.getElementById("labelRight").innerText = right.label;
+}
+
+function select(side) {
+  const label = side === "left" ?
+    document.getElementById("labelLeft").innerText :
+    document.getElementById("labelRight").innerText;
+
+  history.push(label);
+  round++;
+
+  if (round >= maxRounds) {
+    document.querySelector(".choice-container").style.display = "none";
+    document.getElementById("question").style.display = "none";
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerText =
+      `Your algorithm thinks you're into: ${getInferredCategory()}`;
+  } else {
+    showPair();
+  }
+}
+
+function getInferredCategory() {
+  const counts = { fitness: 0, cats: 0, hustle: 0 };
+  history.forEach(choice => {
+    for (const [cat, items] of Object.entries(categories)) {
+      if (items.find(i => i.label === choice)) {
+        counts[cat]++;
       }
     }
+  });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+}
 
-    function finale(category) {
-      document.getElementById('step2').style.display = 'none';
-      const output = document.getElementById('final');
-
-      if (category === 'fitness') {
-        output.innerHTML =
-          `🏋️‍♂️ You clicked on fitness content — now you're recommended intense discipline and wellness culture. <br>` +
-          `Algorithm takeaway: You’re part of a “health-focused, self-improvement” audience.`;
-      } else {
-        output.innerHTML =
-          `😸 You clicked a cat — now you're in a cozy zone filled with escape and comfort. <br>` +
-          `Algorithm takeaway: You’re here to relax, laugh, and unwind.`;
-      }
-    }
-  </script>
+window.onload = showPair;
+</script>
 
 </body>
 </html>

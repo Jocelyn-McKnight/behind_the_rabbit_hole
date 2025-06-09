@@ -114,17 +114,17 @@
 
   <script>
     const steps = {
-      A: { text: "Start: Looking up something simple", next: ['B'] },
+      A: { text: "Start: Looking up the size of Flemish Giant rabbit", next: ['B'] },
       B: { text: "Is topic interesting?", choices: [['No', 'C'], ['Yes', 'D']] },
       C: { text: "Close browser, move on" },
       D: { text: "Click first related link", next: ['E'] },
       E: { text: "Read new article/page", next: ['F'] },
       F: { text: "Find unexpected connection?", choices: [['No', 'G'], ['Yes', 'H']] },
-      G: { text: "Still curious about original topic?", choices: [['No', 'C'], ['Yes', 'I']] },
+      G: { text: "Still curious about the Flemish Giant rabbits?", choices: [['No', 'C'], ['Yes', 'I']] },
       H: { text: "Click related link", next: ['J'] },
       I: { text: "Search for more details", next: ['FF'] },
-      J: { text: "Read new tangential content", next: ['K'] },
-      K: { text: "Mind blown by new info?", choices: [['No', 'L'], ['Yes', 'M']] },
+      J: { text: "Read new tangential content (size of Holland Lop)", next: ['K'] },
+      K: { text: "Mind blown by new info about rabbits?", choices: [['No', 'L'], ['Yes', 'M']] },
       L: { text: "Want to go deeper?", choices: [['No', 'N'], ['Yes', 'O']] },
       M: { text: "Share with friends", next: ['P'] },
       N: { text: "Check time spent", next: ['DD'] },

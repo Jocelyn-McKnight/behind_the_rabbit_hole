@@ -21,6 +21,9 @@
       text-align: center;
       margin: 40px auto;
       animation: fadeIn 0.8s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     @keyframes fadeIn {
@@ -37,6 +40,12 @@
       text-align: center;
     }
 
+    .choice-container > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .choice {
       width: 300px;
       height: 300px;
@@ -46,11 +55,46 @@
       border-radius: 20px;
       transition: border 0.3s;
       display: block;
-      margin: 0 auto;
     }
 
     .choice:hover {
       border: 5px solid #00bcd4;
+    }
+
+    .hamburger-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2em;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hamburger-menu a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      margin: 10px 0;
+    }
+
+    #menu-toggle:checked + .hamburger-icon + .hamburger-menu {
+      display: block;
     }
   </style>
 </head>
@@ -69,8 +113,8 @@
 
   <div class="container">
     <div class="choice-container">
-      <img id="imgLeft" class="choice" src="" alt="Left option">
-      <img id="imgRight" class="choice" src="" alt="Right option">
+      <div><img id="imgLeft" class="choice" src="" alt="Left option"></div>
+      <div><img id="imgRight" class="choice" src="" alt="Right option"></div>
     </div>
   </div>
 

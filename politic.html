@@ -4,11 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Behind the Rabbit Hole</title>
-  <link rel="stylesheet" href="main.css" />
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
-
+    
     body {
       margin: 0;
       padding: 0;
@@ -21,14 +20,14 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-
+    
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 2em;
       margin-top: 40px;
       text-align: center;
     }
-
+    
     .container {
       max-width: 900px;
       width: 90%;
@@ -42,12 +41,12 @@
       margin: 40px auto;
       animation: fadeIn 0.8s ease;
     }
-
+    
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
+    
     .choice-container {
       display: flex;
       justify-content: center;
@@ -55,13 +54,13 @@
       flex-wrap: wrap;
       text-align: center;
     }
-
+    
     .choice-container > div {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
+    
     .choice {
       width: 300px;
       height: 300px;
@@ -71,11 +70,11 @@
       border-radius: 20px;
       transition: border 0.3s;
     }
-
+    
     .choice:hover {
       border: 5px solid #00bcd4;
     }
-
+    
     .hamburger-icon {
       position: absolute;
       top: 20px;
@@ -85,11 +84,11 @@
       cursor: pointer;
       z-index: 1000;
     }
-
+    
     .menu-toggle {
       display: none;
     }
-
+    
     .hamburger-menu {
       display: none;
       position: absolute;
@@ -100,14 +99,14 @@
       border-radius: 10px;
       backdrop-filter: blur(10px);
     }
-
+    
     .hamburger-menu a {
       display: block;
       color: #fff;
       text-decoration: none;
       margin: 10px 0;
     }
-
+    
     #menu-toggle:checked + .hamburger-icon + .hamburger-menu {
       display: block;
     }
@@ -117,27 +116,27 @@
   <!-- Hamburger menu toggle -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle" />
   <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
-
+  
   <div class="hamburger-menu">
     <a href="index.html">Title Page</a>
     <a href="basic.html">For fun (algorithm 1)</a>
     <a href="politic.html">Political Madness (Algorithm 2)</a>
     <a href="flow.html">No Tricks (Algorithm 3)</a>
   </div>
-
+  
   <h1>Behind the Rabbit Hole</h1>
-
+  
   <div class="container">
     <div class="choice-container">
-      <div onclick="select('left')">
+      <div id="leftBox">
         <img id="imgLeft" class="choice" src="" alt="Left option">
       </div>
-      <div onclick="select('right')">
+      <div id="rightBox">
         <img id="imgRight" class="choice" src="" alt="Right option">
       </div>
     </div>
   </div>
-
+  
   <script>
     const categories = {
       rabbits: [
@@ -146,47 +145,38 @@
         { image: "img/rabbits/r3.jpg" },
         { image: "img/rabbits/r4.jpg" },
         { image: "img/rabbits/r5.jpg" },
-        { image: "img/rabbits/r6.jpg" },
-        { image: "img/rabbits/r7.jpg" },
-        { image: "img/rabbits/r8.jpg" },
-        { image: "img/rabbits/r9.jpg" },
-        { image: "img/rabbits/r10.jpg" },
-        { image: "img/rabbits/r11.jpg" },
-        { image: "img/rabbits/r12.jpg" }
+        { image: "img/rabbits/r6.jpg" }
       ],
       hole: [
         { image: "img/hole/h1.jpg" },
         { image: "img/hole/h2.jpg" },
         { image: "img/hole/h3.jpg" },
-        { image: "img/hole/h4.jpg" },
-        { image: "img/hole/h5.jpg" },
-        { image: "img/hole/h6.jpg" },
-        { image: "img/hole/h7.jpg" },
-        { image: "img/hole/h8.jpg" },
-        { image: "img/hole/h9.jpg" },
-        { image: "img/hole/h10.jpg" },
-        { image: "img/hole/h11.jpg" },
-        { image: "img/hole/h12.jpg" }
+        { image: "img/hole/h4.jpg" }
       ],
       alice: [
         { image: "img/alice/a1.jpg" },
         { image: "img/alice/a2.jpg" },
-        { image: "img/alice/a3.jpg" },
-        { image: "img/alice/a4.jpg" },
-        { image: "img/alice/a5.jpg" },
-        { image: "img/alice/a6.jpg" }
+        { image: "img/alice/a3.jpg" }
       ],
       political_mild: [
-        { image: "img/political/p1.jpg" },
-        { image: "img/political/p2.jpg" },
-        { image: "img/political/p3.jpg" }
+        { image: "img/politics_mild/p1.jpg" },
+        { image: "img/politics_mild/p2.jpg" },
+        { image: "img/politics_mild/p3.jpg" }
       ],
       political_hot: [
-        { image: "img/political_hot/p1.jpg" },
-        { image: "img/political_hot/p2.jpg" },
-        { image: "img/political_hot/p3.jpg" }
+        { image: "img/politics_hot/h1.jpg" },
+        { image: "img/politics_hot/h2.jpg" },
+        { image: "img/politics_hot/h3.jpg" }
       ]
     };
+
+    const categorySequence = [
+      "rabbits",
+      "hole",
+      "alice",
+      "political_mild",
+      "political_hot"
+    ];
 
     let progressIndex = 0;
 
@@ -194,51 +184,35 @@
       return array[Math.floor(Math.random() * array.length)];
     }
 
-    function select(side) {
-      progressIndex++;
-      if (progressIndex < categories.length - 1) {
-        showPair();
-      }
-    }
-
     function showPair() {
-      const currentCategory = getCategory();
-      const categoryArray = categories[currentCategory];
+      const currentCategory = categorySequence[progressIndex];
+      const images = categories[currentCategory];
 
-      let left, right;
-      do {
-        left = choose(categoryArray);
-        right = choose(categoryArray);
-      } while (left.image === right.image);
+      let left = choose(images);
+      let right = choose(images);
+      while (right.image === left.image) {
+        right = choose(images);
+      }
 
       document.getElementById("imgLeft").src = left.image;
       document.getElementById("imgRight").src = right.image;
-
-      updateNarrative(currentCategory);
     }
 
-    function getCategory() {
-      const categorySequence = [
-        "rabbits", 
-        "hole", 
-        "alice", 
-        "political_mild", 
-        "political_hot"
-      ];
-      return categorySequence[progressIndex] || "rabbits";
-    }
-
-    function updateNarrative(category) {
-      const messages = {
-        political_hot: "How did we get here?"
-      };
-
-      if (category === "political_hot") {
-        alert(messages[category]);
+    function advance() {
+      if (progressIndex < categorySequence.length - 1) {
+        progressIndex++;
+        showPair();
+      } else {
+        alert("You’ve reached the end of the rabbit hole.");
       }
     }
 
-    window.onload = showPair;
+    // Attach event listeners after DOM is loaded
+    window.onload = () => {
+      document.getElementById("leftBox").onclick = advance;
+      document.getElementById("rightBox").onclick = advance;
+      showPair();
+    };
   </script>
 </body>
 </html>

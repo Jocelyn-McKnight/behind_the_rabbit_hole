@@ -7,7 +7,7 @@
   <link rel="icon" type="image/x-icon" href="img/rabbit.ico" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
-    
+
     body {
       margin: 0;
       padding: 0;
@@ -20,14 +20,14 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    
+
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 2em;
       margin-top: 40px;
       text-align: center;
     }
-    
+
     .container {
       max-width: 900px;
       width: 90%;
@@ -41,12 +41,12 @@
       margin: 40px auto;
       animation: fadeIn 0.8s ease;
     }
-    
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
+
     .choice-container {
       display: flex;
       justify-content: center;
@@ -54,13 +54,7 @@
       flex-wrap: wrap;
       text-align: center;
     }
-    
-    .choice-container > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
+
     .choice {
       width: 300px;
       height: 300px;
@@ -70,73 +64,23 @@
       border-radius: 20px;
       transition: border 0.3s;
     }
-    
+
     .choice:hover {
       border: 5px solid #00bcd4;
-    }
-    
-    .hamburger-icon {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 2em;
-      color: #fff;
-      cursor: pointer;
-      z-index: 1000;
-    }
-    
-    .menu-toggle {
-      display: none;
-    }
-    
-    .hamburger-menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      left: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 10px 20px;
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .hamburger-menu a {
-      display: block;
-      color: #fff;
-      text-decoration: none;
-      margin: 10px 0;
-    }
-    
-    #menu-toggle:checked + .hamburger-icon + .hamburger-menu {
-      display: block;
     }
   </style>
 </head>
 <body>
-  <!-- Hamburger menu toggle -->
-  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
-  <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
-  
-  <div class="hamburger-menu">
-    <a href="index.html">Title Page</a>
-    <a href="basic.html">For fun (algorithm 1)</a>
-    <a href="politic.html">Political Madness (Algorithm 2)</a>
-    <a href="flow.html">No Tricks (Algorithm 3)</a>
-  </div>
-  
+
   <h1>Behind the Rabbit Hole</h1>
-  
+
   <div class="container">
     <div class="choice-container">
-      <div id="leftBox">
-        <img id="imgLeft" class="choice" src="" alt="Left option">
-      </div>
-      <div id="rightBox">
-        <img id="imgRight" class="choice" src="" alt="Right option">
-      </div>
+      <img id="imgLeft" class="choice" src="" alt="Left option">
+      <img id="imgRight" class="choice" src="" alt="Right option">
     </div>
   </div>
-  
+
   <script>
     const categories = {
       rabbits: [
@@ -207,10 +151,9 @@
       }
     }
 
-    // Attach event listeners after DOM is loaded
     window.onload = () => {
-      document.getElementById("leftBox").onclick = advance;
-      document.getElementById("rightBox").onclick = advance;
+      document.getElementById("imgLeft").addEventListener("click", advance);
+      document.getElementById("imgRight").addEventListener("click", advance);
       showPair();
     };
   </script>

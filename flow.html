@@ -9,6 +9,18 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
 
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+    }
+
     .container {
       max-width: 600px;
       width: 90%;
@@ -82,22 +94,21 @@
     .end { border-left: 4px solid #4caf50; }
     .fail { border-left: 4px solid #f44336; }
     .warning { border-left: 4px solid #ffc107; }
-
   </style>
 </head>
 <body>
   <!-- Hamburger menu toggle -->
-  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
-  <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" style="display:none;" />
+  <label for="menu-toggle" class="hamburger-icon" style="display:none;">&#9776;</label>
 
-  <div class="hamburger-menu">
+  <div class="hamburger-menu" style="display:none;">
     <a href="index.html">Title Page</a>
     <a href="basic.html">For fun (algorithm 1)</a>
     <a href="politic.html">Political Madness (Algorithm 2)</a>
     <a href="flow.html">No Tricks (Algorithm 3)</a>
   </div>
 
-    <div class="container" id="flow"></div>
+  <div class="container" id="flow"></div>
 
   <script>
     const steps = {

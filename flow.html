@@ -9,6 +9,18 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
 
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      margin: 0;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
     .container {
       max-width: 600px;
       width: 90%;
@@ -82,14 +94,50 @@
     .end { border-left: 4px solid #4caf50; }
     .fail { border-left: 4px solid #f44336; }
     .warning { border-left: 4px solid #ffc107; }
+
+    .hamburger-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2em;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hamburger-menu a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      margin: 10px 0;
+    }
+
+    #menu-toggle:checked + .hamburger-icon + .hamburger-menu {
+      display: block;
+    }
   </style>
 </head>
 <body>
   <!-- Hamburger menu toggle -->
-  <input type="checkbox" id="menu-toggle" class="menu-toggle" style="display:none;" />
-  <label for="menu-toggle" class="hamburger-icon" style="display:none;">&#9776;</label>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
 
-  <div class="hamburger-menu" style="display:none;">
+  <div class="hamburger-menu">
     <a href="index.html">Title Page</a>
     <a href="basic.html">For fun (algorithm 1)</a>
     <a href="politic.html">Political Madness (Algorithm 2)</a>

@@ -9,24 +9,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
 
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-      font-family: 'Roboto', sans-serif;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 20px;
-    }
-
     .container {
       max-width: 900px;
       width: 90%;
@@ -37,6 +19,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(10px);
       text-align: center;
+      margin: 40px auto;
       animation: fadeIn 0.8s ease;
     }
 
@@ -51,6 +34,7 @@
       align-items: center;
       gap: 40px;
       flex-wrap: wrap;
+      text-align: center;
     }
 
     .choice {
@@ -61,6 +45,8 @@
       border: 5px solid transparent;
       border-radius: 20px;
       transition: border 0.3s;
+      display: block;
+      margin: 0 auto;
     }
 
     .choice:hover {
@@ -69,10 +55,10 @@
   </style>
 </head>
 <body>
-  <input type="checkbox" id="menu-toggle" class="menu-toggle" style="display:none;" />
-  <label for="menu-toggle" class="hamburger-icon" style="display:none;">&#9776;</label>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
 
-  <div class="hamburger-menu" style="display:none;">
+  <div class="hamburger-menu">
     <a href="index.html">Title Page</a>
     <a href="basic.html">For fun (algorithm 1)</a>
     <a href="politic.html">Political Madness (Algorithm 2)</a>
@@ -90,29 +76,43 @@
 
   <script>
     const categories = {
-      rabbits: [ { image: "img/rabbits/r1.jpg" }, { image: "img/rabbits/r2.jpg" }, { image: "img/rabbits/r3.jpg" },
-        { image: "img/rabbits/r4.jpg" }, { image: "img/rabbits/r5.jpg" }, { image: "img/rabbits/r6.jpg" },
-        { image: "img/rabbits/r7.jpg" }, { image: "img/rabbits/r8.jpg" }, { image: "img/rabbits/r9.jpg" },
-        { image: "img/rabbits/r10.jpg" }, { image: "img/rabbits/r11.jpg" }, { image: "img/rabbits/r12.jpg" }
+      rabbits: [
+        { image: "img/rabbits/r1.jpg" }, { image: "img/rabbits/r2.jpg" },
+        { image: "img/rabbits/r3.jpg" }, { image: "img/rabbits/r4.jpg" },
+        { image: "img/rabbits/r5.jpg" }, { image: "img/rabbits/r6.jpg" },
+        { image: "img/rabbits/r7.jpg" }, { image: "img/rabbits/r8.jpg" },
+        { image: "img/rabbits/r9.jpg" }, { image: "img/rabbits/r10.jpg" },
+        { image: "img/rabbits/r11.jpg" }, { image: "img/rabbits/r12.jpg" }
       ],
-      hole: [ { image: "img/hole/h1.jpg" }, { image: "img/hole/h2.jpg" }, { image: "img/hole/h3.jpg" },
-        { image: "img/hole/h4.jpg" }, { image: "img/hole/h5.jpg" }, { image: "img/hole/h6.jpg" },
-        { image: "img/hole/h7.jpg" }, { image: "img/hole/h8.jpg" }, { image: "img/hole/h9.jpg" },
-        { image: "img/hole/h10.jpg" }, { image: "img/hole/h11.jpg" }, { image: "img/hole/h12.jpg" }
+      hole: [
+        { image: "img/hole/h1.jpg" }, { image: "img/hole/h2.jpg" },
+        { image: "img/hole/h3.jpg" }, { image: "img/hole/h4.jpg" },
+        { image: "img/hole/h5.jpg" }, { image: "img/hole/h6.jpg" },
+        { image: "img/hole/h7.jpg" }, { image: "img/hole/h8.jpg" },
+        { image: "img/hole/h9.jpg" }, { image: "img/hole/h10.jpg" },
+        { image: "img/hole/h11.jpg" }, { image: "img/hole/h12.jpg" }
       ],
-      surv: [ { image: "img/surv/s1.jpg" }, { image: "img/surv/s2.jpg" }, { image: "img/surv/s3.jpg" },
-        { image: "img/surv/s4.jpg" }, { image: "img/surv/s5.jpg" }, { image: "img/surv/s6.jpg" },
-        { image: "img/surv/s7.jpg" }, { image: "img/surv/s8.jpg" }, { image: "img/surv/s9.jpg" },
-        { image: "img/surv/s10.jpg" }
+      surv: [
+        { image: "img/surv/s1.jpg" }, { image: "img/surv/s2.jpg" },
+        { image: "img/surv/s3.jpg" }, { image: "img/surv/s4.jpg" },
+        { image: "img/surv/s5.jpg" }, { image: "img/surv/s6.jpg" },
+        { image: "img/surv/s7.jpg" }, { image: "img/surv/s8.jpg" },
+        { image: "img/surv/s9.jpg" }, { image: "img/surv/s10.jpg" }
       ],
-      bunker: [ { image: "img/bunker/b1.jpg" }, { image: "img/bunker/b2.jpg" }, { image: "img/bunker/b3.jpg" },
-        { image: "img/bunker/b4.jpg" }, { image: "img/bunker/b5.jpg" }, { image: "img/bunker/b6.jpg" },
-        { image: "img/bunker/b7.jpg" }, { image: "img/bunker/b8.jpg" }, { image: "img/bunker/b9.jpg" }
+      bunker: [
+        { image: "img/bunker/b1.jpg" }, { image: "img/bunker/b2.jpg" },
+        { image: "img/bunker/b3.jpg" }, { image: "img/bunker/b4.jpg" },
+        { image: "img/bunker/b5.jpg" }, { image: "img/bunker/b6.jpg" },
+        { image: "img/bunker/b7.jpg" }, { image: "img/bunker/b8.jpg" },
+        { image: "img/bunker/b9.jpg" }
       ],
-      radical: [ { image: "img/radical/p1.jpg" }, { image: "img/radical/p2.jpg" }, { image: "img/radical/p3.jpg" },
-        { image: "img/radical/p4.jpg" }, { image: "img/radical/p5.jpg" }, { image: "img/radical/p6.jpg" },
-        { image: "img/radical/p7.jpg" }, { image: "img/radical/p8.jpg" }, { image: "img/radical/p9.jpg" },
-        { image: "img/radical/p10.jpg" }, { image: "img/radical/p11.jpg" }, { image: "img/radical/p12.jpg" }
+      radical: [
+        { image: "img/radical/p1.jpg" }, { image: "img/radical/p2.jpg" },
+        { image: "img/radical/p3.jpg" }, { image: "img/radical/p4.jpg" },
+        { image: "img/radical/p5.jpg" }, { image: "img/radical/p6.jpg" },
+        { image: "img/radical/p7.jpg" }, { image: "img/radical/p8.jpg" },
+        { image: "img/radical/p9.jpg" }, { image: "img/radical/p10.jpg" },
+        { image: "img/radical/p11.jpg" }, { image: "img/radical/p12.jpg" }
       ]
     };
 

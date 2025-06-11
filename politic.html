@@ -8,7 +8,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap');
 
-
     .container {
       max-width: 900px;
       width: 90%;
@@ -128,7 +127,6 @@
         { image: "img/radical/p10.jpg" },
         { image: "img/radical/p11.jpg" },
         { image: "img/radical/p12.jpg" },
-
       ]
     };
 
@@ -145,7 +143,7 @@
     let roundsToStay = getRandomRounds();
 
     function getRandomRounds() {
-      return Math.floor(Math.random() * 4) + 2; // Random number between 2 and 5
+      return Math.floor(Math.random() * 4) + 2; // 2–5 rounds
     }
 
     function choose(array) {
@@ -168,16 +166,21 @@
 
     function advance() {
       roundsInCategory++;
-      if (roundsInCategory >= roundsToStay) {
-        if (progressIndex < categorySequence.length - 1) {
+
+      if (progressIndex < categorySequence.length - 1) {
+        if (roundsInCategory >= roundsToStay) {
           progressIndex++;
           roundsInCategory = 0;
           roundsToStay = getRandomRounds();
-        } else {
-          alert("You’ve reached the end of the rabbit hole.");
-          return;
+        }
+      } else {
+        // In the final category "radical", loop forever
+        if (roundsInCategory >= roundsToStay) {
+          roundsInCategory = 0;
+          roundsToStay = getRandomRounds();
         }
       }
+
       showPair();
     }
 

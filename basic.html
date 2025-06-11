@@ -124,7 +124,6 @@
   </style>
 </head>
 <body>
-  <!-- Hamburger menu toggle -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle" />
   <label for="menu-toggle" class="hamburger-icon">&#9776;</label>
 
@@ -190,8 +189,38 @@
       ]
     };
 
+    const shuffled = {
+      rabbits: shuffle([...categories.rabbits]),
+      hole: shuffle([...categories.hole]),
+      alice: shuffle([...categories.alice])
+    };
+
+    const indexTracker = {
+      rabbits: 0,
+      hole: 0,
+      alice: 0
+    };
+
     let round = 0;
     let currentCategory = "rabbits";
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function getNext(category) {
+      const idx = indexTracker[category]++;
+      if (idx >= shuffled[category].length) {
+        shuffled[category] = shuffle([...categories[category]]);
+        indexTracker[category] = 1;
+        return shuffled[category][0];
+      }
+      return shuffled[category][idx];
+    }
 
     function choose(array) {
       return array[Math.floor(Math.random() * array.length)];
@@ -207,22 +236,20 @@
     }
 
     function showPair() {
-      const sameCatArray = categories[currentCategory];
       const otherCats = Object.keys(categories).filter(c => c !== currentCategory);
       const altCatKey = choose(otherCats);
-      const altCatArray = categories[altCatKey];
 
       let left, right;
 
       if (round % 3 === 0) {
-        left = choose(sameCatArray);
-        right = choose(altCatArray);
+        left = getNext(currentCategory);
+        right = getNext(altCatKey);
         right.tag = altCatKey;
       } else {
-        left = choose(sameCatArray);
+        left = getNext(currentCategory);
         do {
-          right = choose(sameCatArray);
-        } while (right.image === left.image);
+          right = getNext(currentCategory);
+        } while (right.image === left.image && categories[currentCategory].length > 1);
         right.tag = currentCategory;
       }
 

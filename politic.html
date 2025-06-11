@@ -123,6 +123,12 @@
     ];
 
     let progressIndex = 0;
+    let roundsInCategory = 0;
+    let roundsToStay = getRandomRounds();
+
+    function getRandomRounds() {
+      return Math.floor(Math.random() * 4) + 2; // Random number between 2 and 5
+    }
 
     function choose(array) {
       return array[Math.floor(Math.random() * array.length)];
@@ -143,12 +149,18 @@
     }
 
     function advance() {
-      if (progressIndex < categorySequence.length - 1) {
-        progressIndex++;
-        showPair();
-      } else {
-        alert("You’ve reached the end of the rabbit hole.");
+      roundsInCategory++;
+      if (roundsInCategory >= roundsToStay) {
+        if (progressIndex < categorySequence.length - 1) {
+          progressIndex++;
+          roundsInCategory = 0;
+          roundsToStay = getRandomRounds();
+        } else {
+          alert("You’ve reached the end of the rabbit hole.");
+          return;
+        }
       }
+      showPair();
     }
 
     window.onload = () => {
